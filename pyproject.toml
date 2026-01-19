@@ -1,7 +1,12 @@
 [project]
 name = "whatsapp-mcp-client"
 version = "0.1.0"
-description = "Add your description here"
+description = "Python client for connecting AI agents to a WhatsApp MCP server. Handles env-based auth, MCP tool discovery, and LangChain ReAct agent setup to send WhatsApp messages via a secure, async MCP workflow."
 readme = "README.md"
 requires-python = ">=3.14"
-dependencies = []
+dependencies = [
+    "langchain>=1.2.6",
+    "langchain-mcp-adapters>=0.2.1",
+    "langchain-openai>=1.1.7",
+    "python-dotenv>=1.2.1",
+]
