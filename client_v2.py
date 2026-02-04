@@ -16,9 +16,9 @@ from langchain_mcp_adapters.tools import load_mcp_tools
 from langchain_mcp_adapters.client import MultiServerMCPClient
 from langchain_core.messages import BaseMessage
 
-from callbacks import ToolLoggingCallback
-from json_history import load, append, clear
-from mcp_servers import MCPServerSpec
+from agent.callbacks import ToolLoggingCallback
+from utils.json_history import load, append, clear
+from tool_mcp.mcp_servers import MCPServerSpec
 
 # ---------------------------------------------------------------------
 # Environment
@@ -163,7 +163,7 @@ async def main():
         MCPServerSpec(
             name="whatsapp",
             transport="http",
-            url="http://127.0.0.1:2001/mcp",
+            url="https://whatsapp-mcp-server-xqt4.onrender.com/mcp",
             headers={
                 "Authorization": f"Bearer {os.getenv('MCP_API_TOKEN')}",
                 "x-whatsapp-phone-id": os.getenv("PHONE_NUMBER_ID"),
@@ -207,3 +207,7 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+
+
+
+

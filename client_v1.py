@@ -18,8 +18,55 @@ REQUIRED_ENV_VARS = [
     "WABATOKEN",
 ]
 
+
+
+
+# ---------------------------------------------------------------------
+# COST CONFIG
+# ---------------------------------------------------------------------
+
+MODEL_PRICING = {
+    "gpt-4o-mini": {
+        "input": 0.15 / 1_000_000,     # $ per token
+        "output": 0.60 / 1_000_000,
+    }
+}
+
+
+def normalize_model_name(model: str) -> str:
+    """
+    Normalize versioned OpenAI model names
+    e.g. gpt-4o-mini-2024-07-18 -> gpt-4o-mini
+    """
+    if not model:
+        return ""
+
+    if model.startswith("gpt-4o-mini"):
+        return "gpt-4o-mini"
+
+    return model
+
+
+def calculate_llm_cost(model: str, prompt: int, completion: int) -> float:
+    base_model = normalize_model_name(model)
+
+    pricing = MODEL_PRICING.get(base_model)
+
+    if not pricing:
+        print(f"⚠️  No pricing found for model: {model}")
+        return 0.0
+
+    input_cost = prompt * pricing["input"]
+    output_cost = completion * pricing["output"]
+
+    return round(input_cost + output_cost, 6)
+
+
+
+
+
 DEFAULT_WHATSAPP_API_VERSION = "v18.0"
-MCP_SERVER_URL = "http://127.0.0.1:2001/mcp"
+MCP_SERVER_URL = "https://whatsapp-mcp-server-xqt4.onrender.com/mcp"
 
 
 def load_and_validate_env() -> Dict[str, str]:
@@ -98,6 +145,8 @@ async def main() -> None:
         }
     )
 
+
+
     print("\nAgent Response:")
     print(response)
     agent_data = extract_agent_data(response)
@@ -123,9 +172,26 @@ async def main() -> None:
     print(f"  Completion Tokens: {agent_data['tokens']['completion']}")
     print(f"  Total Tokens     : {agent_data['tokens']['total']}")
 
+    llm_cost = calculate_llm_cost(
+    agent_data["model"],
+    agent_data["tokens"]["prompt"] or 0,
+    agent_data["tokens"]["completion"] or 0,
+)
+
+    print("\n💵 LLM Cost (USD)")
+    print(f"  ${llm_cost}")
+
     print("\n✅ Status")
     print("  SUCCESS" if agent_data["success"] else "  FAILED")
+
+
+    
+
+
     print("=" * 60)
+
+
+
 
 
 
