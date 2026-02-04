@@ -21,13 +21,15 @@ The WhatsApp MCP Client is engineered to facilitate robust and efficient communi
   - **Simplified Setup**: Focuses on essential configurations, making it easy to understand and deploy.
   - **Core Functionality**: Provides a straightforward interface for basic client-server interactions.
 
+## Server Information
+
+For those interested in the server-side implementation, you can find the WhatsApp MCP Server repository [here](https://github.com/Harikrishnan46624/WHATSAPP-MCP-SERVER.git). To use this server, connect to the following URL: [https://whatsapp-mcp-server-xqt4.onrender.com/mcp](https://whatsapp-mcp-server-xqt4.onrender.com/mcp).
+
 ## Getting Started
 
 To begin using the WhatsApp MCP Client, select the client version that best aligns with your requirements. Follow the setup instructions provided in each client's documentation to configure your environment and start interacting with the WhatsApp MCP server.
 
-## Contributing
 
-We welcome contributions from the community. Please refer to our [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to contribute to this project.
 
 ## License
 
